@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franks Gay</title>
+    <link rel="stylesheet" href="../assets/css/franks.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="w-100 text-center d-flex justify-content-center" style="background-color: blue; height: 60px;">
+<div class="w-30 h-100 text-center justify-content-around d-flex "> 
+        <div class="w-15 h-50 bg-primary"> home</div>    
+        <div id="your" class="w-30 h-50 bg-success">
+            <quantity-counter class="w-100 h-100"></quantity-counter>
+        </div>
+        <div onclick="alert(yourmom())" class="w-25 h-50 bg-light">account</div>
+</div>   
+ </div>
+ <script >
+    var toggle = true;
+   
+    function yourmom(){
+        if (toggle == true){
+        var x =    document.getElementsByClassName('d-flex')[1];
+        console.log(x);
+         document.getElementById('your').innerHTML ="your mom gay";
+         toggle = false;
+        }
+        else{
+            document.getElementById('your').innerHTML ="store";
+            toggle = true;
+        }
+
+        return "yourmomgay";
+    }
+ </script>
+ <script src="../assets/js/franks.js"></script>
+</body>
+</html>

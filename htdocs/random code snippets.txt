@@ -1,0 +1,9 @@
+	<div class="d-flex">
+											<div class="w-40">
+												<button class="btn btn-outline-secondary w-100 decrement-btn" onclick="decrementQuantity('counter-value')" type="button" >-</button>
+											</div>
+											<input type="number" class="w-50 frank-form-control text-center " id="counter-value" value="0" readonly>
+											<div class="w-40 h-50">
+												<button class="btn btn-outline-secondary w-100 increment-btn" type="button" onclick="incrementQuantity('counter-value')" >+</button>
+											</div>
+										</div>
