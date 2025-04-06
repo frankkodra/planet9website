@@ -258,12 +258,10 @@ class QuantityCounter extends HTMLElement {
     this.decrementBtn = this.shadowRoot.querySelector('.decrement-btn');
     this.incrementBtn = this.shadowRoot.querySelector('.increment-btn');
     this.counterInput = this.shadowRoot.querySelector('input');
-
     this.decrementBtn.addEventListener('click', this.decrementQuantity.bind(this));
     this.incrementBtn.addEventListener('click', this.incrementQuantity.bind(this));
 
-    this.debouncedInputChanged = this.debounce(this.inputChanged.bind(this), this.delay);
-    this.counterInput.addEventListener('input', this.debouncedInputChanged);
+  
   }
   getValue(){
     return this.counterInput.value();
@@ -284,28 +282,13 @@ class QuantityCounter extends HTMLElement {
     }
   }
     
-  debounce(func, delay) {
-    let timeout;
-    return function() {
-      const context = this;
-      const args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), delay);
-    };
-  }
-  
-  inputChanged() {
-    const currentValue = this.counterInput.value;
-    if (this.onchange) {
-      eval(this.onchange);
-    }
-  }
+
 }
 
 customElements.define('quantity-counter', QuantityCounter);
 
 class ProductCounter extends HTMLElement {
-
+  
   
     static ProductCounters ={};
   constructor() {
@@ -384,12 +367,12 @@ if(this.productName in shoppingCart){
   <div class="d-flex align-items-center justify-content-center align-items-center flex-sm-column flex-column w-100" >
   <button style="      border-radius: 1rem;    color: #ffffff; background-color: #e81ecd;" class="btn ${addToCartExist} h-100" onclick="ProductCounter.addToCart('${this.productName}',1)">Add to Cart</button>
 <div id="retail" class=" ${retailExist} h-50  flex-row justify-content-center 500mg-brownie align-items-center w-100 ">
-<h4 id="WL" class="${wholesaleExist} w-30">retail:</h1>
+<h4 id="WL" class="${wholesaleExist} w-50">retail:</h1>
       <quantity-counter id="rc" class="h-100 w-70" onincrement="ProductCounter.addToCart('${this.productName}',1)" ondecrement="ProductCounter.removeFromCart('${this.productName}',1)" ></quantity-counter>
 </div>
 
 <div id="wholesale" class="mt-5 h-50 ${wholesaleExist} flex-row justify-content-center 500mg-brownie-wholesale align-items-center w-100">
-  <h4 class=" w-50 w-30">wholesale:</h1>
+  <h4 class=" w-50 ">wholesale:</h1>
 <quantity-counter class="h-100 w-70" id="wc" min="${this.wholesaleMinimum}" step="${this.wholesaleIncrement}" onincrement="ProductCounter.addToCart('${this.productName}-wholesale',1)" ondecrement="ProductCounter.removeFromCart('${this.productName}-wholesale',1)"  ></quantity-counter>
                    </div>
 </div>
@@ -418,14 +401,11 @@ if(this.productName in shoppingCart){
           {
             console.log(e);
           }
-    // Bind the addToCart method to the custom element instance
+ 
 
 
   }
-  static addToCartyoutmom(pn,q){
-    console.log("add too cart your momoowmomqwoerfmwoefm");
 
-  }
   static updateCartCount() {
     let c = 0;
     console.log("updating count for cart");
@@ -472,8 +452,9 @@ if(this.productName in shoppingCart){
           
               ProductCounter.updateShoppingCart(PN,qId);
               ProductCounter.updateCounters(PN);
-              Cart.updateCarts(PN);
               ProductCounter.updateCartCount();
+             // ProductCounter.updateCart(PN)
+              CartPage.updateCartPages(PN);
             }
 
             else {
@@ -496,65 +477,80 @@ if(this.productName in shoppingCart){
        return succ;
       
 }
-static LOADCART(){
-  console.log("loading cart: "+shoppingCart);
-  for( var pn in shoppingCart){
-    this.updateCart(pn);
-  }
-}
-static updateCart(PN){  
-   console.log("setting cart counter "+PN);
-if(!(PN in shoppingCart)){
-try{
-  console.log("removing item from cart");
-  document.getElementById("cart-"+PN).remove() 
-
-}
-catch(e){} 
- return;
-}
-
-  var price;
-  if(PN.includes("wholesale")){
-    console.log(PN);
-    price = productPricing[PN.replaceAll("-wholesale","")].WholesalePrice;
-
-  }else{
-    price = productPricing[PN].RetailPrice;
-  }
-
-  if(document.getElementById("cart-"+PN)!=null){
+// static LOADCART(){
+//   console.log("loading cart: "+shoppingCart);
+//   for( var pn in shoppingCart){
+//     this.updateCart(pn);
+//   }
+//   if(shoppingCart.length==0){
+//     document.getElementById("cart").innerText="nothing in cart";
+//   }
+//}
+// static updateCart(PN){
+//   console.log("updating cart:::"+PN)
+//   // if(shoppingCart.length ==0){
+//   //
+//   // }else{
  
-    document.getElementById("cartCounter-"+PN).setCounter(shoppingCart[PN].quantity);
-    document.getElementById("item-price-"+PN).innerHTML = `Price: $${shoppingCart[PN].quantity * price}`;
+//   // }
+//    console.log("setting cart counter "+PN);
+//    console.log("shopping cart::"+shoppingCart)
+//    console.log(shoppingCart)
+// if(!(PN in shoppingCart)){
+// try{
+//   console.log("removing item from cart"+PN);
+//   document.getElementById("cart-"+PN).remove() 
 
-  }else{
-            let cartitem = document.createElement('li');
+// }
+// catch(e){
+//   console.log(e)
+// } 
+//  return;
+// }
 
-            cartitem.id ="cart-"+PN
-            cartitem.innerHTML=` <div 
-            style="padding: 10px;
-            font-family: var(--bs-font-sans-serif);
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.5;
-            color: #212529;
-            cursor: default;
-            background: white" 
-            class="d-flex flex-row align-items-center" >
-                <span class="item-name w-40" style="">${PN}</span>
-                 <quantity-counter class="w-40" id="cartCounter-${PN}" onincrement="ProductCounter.addToCart('${PN}',1)" ondecrement="ProductCounter.removeFromCart('${PN}',1)"></quantity-counter>
-                <span class="item-price w-10" id="item-price-${PN}" style="">Price: $${shoppingCart[PN].quantity * price}</span>
-            </div>`
-        document.getElementById('cart').appendChild(cartitem);
+//   var price;
+//   if(PN.includes("wholesale")){
+//     console.log(PN);
+//     price = productPricing[PN.replaceAll("-wholesale","")].WholesalePrice;
 
-  var x = document.querySelector("#cartCounter-"+PN)
-  console.log(shoppingCart);
-  x.setCounter(shoppingCart[PN].quantity);
+//   }else{
+//     price = productPricing[PN].RetailPrice;
+//   }
 
-}
+//   if(document.getElementById("cart-"+PN)!=null){
+ 
+//     document.getElementById("cartCounter-"+PN).setCounter(shoppingCart[PN].quantity);
+//     document.getElementById("item-price-"+PN).innerHTML = `Price: $${shoppingCart[PN].quantity * price}`;
 
-}
+//   }else{
+            
+//             let cartitem = document.createElement('div');
+
+//             cartitem.id ="cart-"+PN
+//             cartitem.innerHTML=` <div 
+//             style="padding: 10px;
+//             font-family: var(--bs-font-sans-serif);
+//             font-size: 1rem;
+//             font-weight: 600;
+//             line-height: 1.5;
+//             color: #212529;
+//             cursor: default;
+//             background: white" 
+//             class="d-flex flex-row align-items-center" >
+//                 <span class="item-name w-40" style="">${PN}</span>
+//                  <quantity-counter class="w-40" id="cartCounter-${PN}" onincrement="ProductCounter.addToCart('${PN}',1)" ondecrement="ProductCounter.removeFromCart('${PN}',1)"></quantity-counter>
+//                 <span class="item-price w-10" id="item-price-${PN}" style="">Price: $${shoppingCart[PN].quantity * price}</span>
+//             </div>`
+//         document.getElementById('cart').appendChild(cartitem);
+        
+//   var x = document.querySelector("#cartCounter-"+PN)
+//   console.log(shoppingCart);
+//   console.log("adding element to cart")
+//   x.setCounter(shoppingCart[PN].quantity);
+
+// }
+
+//}
 static updateCounters(PN){
 console.log("update counters");
   if(PN in shoppingCart){
@@ -573,7 +569,7 @@ console.log("update counters");
       counter.retailCounter.setCounter(shoppingCart[PN].quantity);
       counter.retailDiv.style.display="flex"
       counter.addToCartButton.style.display ="none";
-      console.log("runniong the code change the display");
+      //console.log("runniong the code change the display");
       if(wholesale){
         counter.wholesaleDiv.style.display="flex"
      counter.WL.style.display="block";
@@ -669,8 +665,10 @@ static async removeFromCart(productName,quantityToRemove){
               }
           ProductCounter.updateShoppingCart(productName,quantityToRemove);
           ProductCounter.updateCounters(productName);
-          Cart.updateCarts(productName);
+      
           ProductCounter.updateCartCount();
+         // ProductCounter.updateCart(productName);  
+            CartPage.updateCartPages(productName)
               }
       )
       .fail(function (xhr) {
@@ -679,8 +677,8 @@ static async removeFromCart(productName,quantityToRemove){
       });
 }
 }
-
-
+ProductCounter.updateCartCount();
+//ProductCounter.LOADCART();
 // Define the custom element
 customElements.define('product-counter', ProductCounter);
 //b ProductCounter.LOADCART();
@@ -693,13 +691,7 @@ class ProductCard extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .frank-card {
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          border-radius: 0.25rem;
-          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-          padding: 1rem;
-        }
+         
         
         h3 {
           text-align: center;
@@ -736,7 +728,7 @@ class ProductCard extends HTMLElement {
       </style>
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/franks.css">
-      <div class="frank-card">
+      <div class="frank-card p-3">
         <h3>${this.getAttribute('product')}</h3>
         <a href="${this.getAttribute('product')}.php">
           <img src="assets/images/productMainImages/${this.getAttribute('product')}main.jpeg" alt="">
@@ -752,11 +744,11 @@ class ProductCard extends HTMLElement {
 
   static viewProduct(pn) {
     console.log(document.getElementById("viewProduct"));
-    document.getElementById("viewProduct").innerHTML = `<product-page product="${pn}"></product-page>`;
+    document.getElementById("viewProduct").innerHTML = `<product-page product="${pn}"></product-page>`
+    window.scrollTo(0,0)
   }
 }
 
-customElements.define('product-card', ProductCard);
 
 customElements.define('product-card', ProductCard);
 class ProductPage extends HTMLElement {
@@ -899,7 +891,7 @@ class ProductPage extends HTMLElement {
            
               <div class="h-85 w-100 d-flex align-items-center justify-content-center flex-row mx-5">           
                    <div class=" arrow w-15 text-center" style="font-size:40px;" onclick="navigateLightbox(-1)">←</div>
-                <img class="h-100" src="${this.product.images[0]}" alt="Img" onclick="openLightbox('${this.product.images[0]}')" id="lightboxImage">
+                <img class="h-85" src="${this.product.images[0]}" alt="Img" onclick="openLightbox('${this.product.images[0]}')" id="lightboxImage">
                 <div class="arrow w-15 text-center" style="font-size:40px;" onclick="navigateLightbox(1)">→</div>
 
               </div>
@@ -951,23 +943,55 @@ class ProductPage extends HTMLElement {
 }
 
 customElements.define('product-page', ProductPage);
+
   class Dropdown {
  
     constructor() {
       this.dropdowns = document.querySelectorAll('.frank-dropdown');
-      console.log("making drop down"+this.dropdowns[0])
-      this.init();
+      this.dropdownstoggle = document.querySelectorAll('.frank-dropdown-toggle');
+   //   console.log("making drop down"+this.dropdowns[0])
+      this.initHover();
+      this.initToggle();
     }
+    initToggle(){
+       
+      this.dropdownstoggle.forEach(dropdown=>{
+        this.positionDropdown(dropdown);
+        let buttonId= dropdown.getAttribute("buttonId");
+        let dropBtn;
+        let d =dropdown.getAttribute('display');
+        if(d==null){
+          d="block"
+        }
+        if(buttonId!=null){  
+          console.log("button id !=null")
+          dropBtn = document.getElementById(buttonId);
+           } 
+           else{
+          
+            dropBtn = dropdown.parentElement.children[0];
+           }
+          dropBtn.toggle = false;
+          dropBtn.addEventListener("click",()=>{
+            console.log("clicking ::"+d);
+            if(dropBtn.toggle==true)
+              Dropdown.closeDropdown(dropdown)
+            else
+            Dropdown.openDropdown(dropdown,d)
+          dropBtn.toggle= dropBtn.toggle?false:true
+        })
+      })
 
-    init() {      
+    }
+    initHover() {      
   
 
       this.dropdowns.forEach(dropdown => {   
         this.positionDropdown(dropdown);
-        dropdown.inDrop = false;
+       
         console.log("making drop down");
         const dropdownToggle = dropdown.parentElement;
-        let d =dropdown.getAttribute("display");
+        let d =dropdown.getAttribute('display');
         if(d==null){
           d="block"
         }
@@ -980,7 +1004,7 @@ customElements.define('product-page', ProductPage);
       
         })
         dropdownToggle.addEventListener('mouseleave', () => {
-          dropdown.inDrop = false;
+    
           setTimeout(() => {
             Dropdown.closeDropdown(dropdown);
           }, 1500);
@@ -993,12 +1017,19 @@ customElements.define('product-page', ProductPage);
     }
 
     positionDropdown(dropdown) {
-      const rect = dropdown.parentElement.getBoundingClientRect();
+     
    //   dropdown.style.transform = 'translateY(100%)  ';
-      dropdown.style.top = '100%';
-      dropdown.style.left = 'auto';
-      dropdown.style.display="none";
-      dropdown.style.position="absolute"
+   const parentRect = dropdown.parentElement.getBoundingClientRect();
+     var parentElement = dropdown.parentElement;
+      parentElement.style.position="relative";
+      parentElement.style.display="inline-block";
+      
+
+   dropdown.style.display ="none"
+   dropdown.style.position = "absolute";
+   dropdown.style.top = "100%"; // Places it directly below the parent
+   //dropdown.style.left = "0%"; // Centers it based on parent's width
+   dropdown.style.transform = "translateX(-50%)"; 
     }
 
     positionDropdowns() {
@@ -1009,43 +1040,102 @@ customElements.define('product-page', ProductPage);
       });
     }
     static closeDropdown(dropdown){
-      console.log("closing drop down: "+dropdown.inDrop);
-      if(dropdown.inDrop !=true)
+     // console.log("closing drop down: "+dropdown.inDrop);
+      
           dropdown.style.display='none';
     }
     static openDropdown(dropdown,display){      
-      console.log("opening drop down: "+dropdown.inDrop);
+     // console.log("opening drop down: "+dropdown.inDrop);
       dropdown.style.display = display;
       dropdown.inDrop=true;
 
     }
-    static toggleDropdown(dropdown,display){
-
-      if(dropdown.style.display=="none"||dropdown.inDrop){
-      dropdown.style.display=display;   
-      dropdown.inDrop =true;
-    //  Array.from(dropdown.parentElement.children).forEach(element => {
-    //   element.style.transform = 'translateY(150%)';
-    // });
-  }
-      else{
-  
-      // Array.from(dropdown.parentElement.children).forEach(element => {
-      //   element.style.transform = 'translateY(0%)';
-      // });
+ 
     
-    }
-      
-      console.log("toggling drop down 3: "+dropdown.style.display);
-    
-
-    }
   
   }
  
 //customElements.define('product-page', ProductPage);
   // Usage example
+  
   const dropdowns = new Dropdown();
+  class CartItem extends HTMLElement{
+    constructor(){
+      super();
+      this.productName = this.getAttribute('productName');
+      this.render();
+    }
+    render(){
+      this.attachShadow({mode:'open'})
+      this.shadowRoot.innerHTML =`
+      <link rel="stylesheet" href="assets/css/franks.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+       <div 
+            style="padding: 10px;
+            font-family: var(--bs-font-sans-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #212529;
+            cursor: default;
+            background: white" 
+            class="d-flex flex-row align-items-center" >
+                <span class="item-name w-40" style="">${this.productName}</span>
+                 <quantity-counter class="w-40" id="cartCounter-${this.productName}" onincrement="ProductCounter.addToCart('${this.productName}',1)" ondecrement="ProductCounter.removeFromCart('${this.productName}',1)"></quantity-counter>
+                <span class="item-price w-10" id="item-price-${this.productName}" style="">Price: $${shoppingCart[this.productName].quantity *shoppingCart[this.productName].price}</span>
+            </div>`;
+            console.log(  this.shadowRoot.getElementById(`cartCounter-${this.productName}`))
+            this.shadowRoot.getElementById(`cartCounter-${this.productName}`).setCounter(shoppingCart[this.productName].quantity);
+    }
+    updateAmount(quantity){
+       
+      this.shadowRoot.getElementById(`cartCounter-${this.productName}`).setCounter(quantity);
+
+    }
+  }
+  customElements.define("cart-item",CartItem)
+  class CartPage extends HTMLElement{
+    static cartPages=[];
+    constructor(){
+      super();
+      this.render();
+      CartPage.cartPages.push(this);
+    }
+    render(){
+      this.attachShadow({mode:'open'})
+      var elements =[];
+      for(var product in shoppingCart){
+        this.shadowRoot.innerHTML+=` 
+        <cart-item id=${product} productName=${product}></cart-item>
+        `;
+       
+        
+
+        
+      }
+      
+      
+    }
+    
+    static updateCartPages(productName){
+      
+      console.log("updating amount in cart page");
+      for(var cart of this.cartPages){
+        console.log(this.cartPages)
+        console.log(cart)
+        if (shoppingCart[productName]==undefined){
+          cart.shadowRoot.removeChild( cart.shadowRoot.getElementById(productName));
+          continue;
+        }
+        if(  cart.shadowRoot.getElementById(productName)==null){
+          cart.shadowRoot.innerHTML+=` <cart-item id=${productName} productName=${productName}></cart-item>`;
+          continue;
+        }
+        cart.shadowRoot.getElementById(productName).updateAmount(shoppingCart[productName].quantity);
+      }
+    }
+  }
+  customElements.define("cart-pagee",CartPage)
   class NavBar extends HTMLElement
   {
     constructor(){
@@ -1200,4 +1290,3 @@ customElements.define('product-page', ProductPage);
   }
   }
   customElements.define("nav-bar",NavBar)
- 

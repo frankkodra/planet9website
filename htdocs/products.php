@@ -14,7 +14,7 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- favicon -->
-
+		<link rel="stylesheet" href="assets\css\franks.css">
 		<link rel="apple-touch-icon" href="apple-touch-icon.png">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/planet 9 logo temporary.png">
 		<!-- Bootstrap v4.4.1 css -->
@@ -43,7 +43,7 @@
 	 <!-- This stylesheet dynamically changed from style.less -->
 		<!-- responsive css -->
 		<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-				<link rel="stylesheet" href="assets\css\franks.css">
+				
 	</head>
 	<body class="home-red-color2">
 		
@@ -59,15 +59,39 @@
         </div>
 		<!--Preloader area end here-->
 	
-		
-<!-- Main content Start -->
-		
-			<!--Full width header Start-->
-				<!--Header Start-->
-	
-					<!-- Toolbar Area Start -->
+				
+
+					<div class="d-flex d-sm-none flex-row bg-black px-9 pt-1">
+					<i class="fi fi-rr-envelope-plus main-color mr-1"></i>                  
+					<a href="mailto:info@planet9@info.com" class=" pr-1 clear-link" style="border-right:1px dotted white;">info@Planet9.com</a>  
 					
-				<nav-bar></nav-bar>
+					<i class="fi fi-rr-phone-call main-color mr-1 pl-1"></i>  
+		            <a href="tel:(+1)7854-333-222" class=" pr-1 clear-link" style="border-right:1px dotted white;"> (+1) 7854-333-222</a> 
+
+					<i class="fi-rr-map-marker-home main-color pl-1 mr-1"></i>                                      
+					9876 Street, Houston, TX     
+
+					<a href="#" class="ml-20 mr-2"><i class="fa fa-facebook main-color "></i></a>
+					<a href="#" class="mr-2"><i class="fa fa-twitter main-color"></i></a>
+					<a href="#" class="mr-2"><i class="fa fa-instagram main-color"></i></a>
+					</div>
+
+					<div style="background-color: black; font-size:25px;color:white;" class="d-flex d-sm-none flex-row justify-content-center p-3 sticky-section ">
+						<a href="index.php" class="mr-3 clear-link main-color-hover">Home</a>
+						<a href="about.php" class="mr-3 clear-link main-color-hover">about</a>
+						<a href="" class="mr-3 clear-link main-color">products</a>
+						<a href="contact.php" class="mr-3 clear-link main-color-hover">contact</a>
+						<a onclick="popup('login')" class="mr-7 main-color-hover clear-link ">login</a>
+						<div id="shoppingCart"  class="d-flex flex-row">
+							<span id="cart-count"></span>
+							<i id="cartDrop"class="fa-solid fa-cart-shopping"></i>
+							<div class="frank-dropdown-toggle main-color frank-card" buttonId="cartDrop" id="cart" style="margin-top: 50%; width:30rem;text-align:center">
+								<cart-pagee></cart-pagee>
+							</div>
+						</div>
+						</div>
+
+			
 					<!-- Menu End -->
 
 					<!-- Canvas Mobile Menu start -->
@@ -156,7 +180,10 @@
                     </div>
                 </div>
 			</div>
-<div id='viewProduct'></div>
+<div  class="d-flex justify-content-center">
+	<cart-pagee class="w-50"></cart-pagee>
+	<div id='viewProduct' class=""></div>
+</div>
 </div>
 
 
@@ -193,113 +220,62 @@
 		<!-- Main content End -->
 	 
 		<!-- Footer Start -->
-		<footer id="rs-footer" class="rs-footer footer-main-home">
-			<div class="footer-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3 pr-20 md-pr-15 md-mb-20">
-							<div class="footer-logo mb-51 md-mb-30">
-								<a href="index.html"><img src="assets/images/planet 9 logo temporary.png" alt=""></a>
-							</div>
-							<div class="textwidget">
-								<p class="pb-20">Lorem ipsum dolor sit amet, consec tetur adipiscing elit, sed do eiusmod tempor in cididunt ut labore.</p>
-							</div>
-							<ul class="footer-social md-mb-30">  
+				<div class="w-100 mt-20 d-flex justify-content-center flex-row align-items-center" style="height: 300px;background-color:black;">
+					<div class="w-20 mr-10 d-flex justify-content-center flex-column align-items-center">
+						<h4 class="text-align-center">Socials</h4>
+						<ul class="">  
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>                     
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>                                        
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>                                         
                                 <li><a href="#"><i class="fa fa-instagram"></i></a></li>                     
                           	</ul>
 						</div>
-						<div class="col-lg-3 md-mb-10">
-							<h3 class="footer-title">Contact Info</h3>
-							<ul class="address-widget">
+					<div >
+						<h4 class="text-align-center">Contact</h4>
+				       <ul class="address-widget">
                                 <li>
                                     <i class="fi fi-rr-map-marker-home"></i>
                                     <div class="desc">
-                                    	9283, Houston<br>
-                                    	Rd, Texas
+                                    	9876 Street,<br>
+                                    	Houston, TX 77953
 									</div>
                                 </li>
                                 <li>
                                     <i class="fi fi-rr-phone-call"></i>
-                                    <div class="desc">
-                                       <a href="tel:(+880)15569569365">(+880)155 69569 365</a><br>
-                                       <a href="tel:(+880)15569569366">(+880)155 69569 366</a>
-                                    </div>
+                                   
+                                       <a href="tel:(+880)15569569365">(+1) 8824-353-232</a><br>
+                                       <a href="tel:(+880)15569569366">(+1) 7854-333-272</a>
+                                
                                 </li>
                                 <li>
                                     <i class="fi fi-rr-envelope-plus"></i>
                                     <div class="desc">
-                                        <a href="mailto:support@Planet9.com">support@planet9.com</a><br>
-                                        <a href="mailto:infoname@Planet9.com">infoname@Planet9.com</a>
+                                        <a href="mailto:info@Planet9.com"> info@Planet9.com</a><br>
+                                        <a href="mailto:info@Planet9.com"> info@Planet9.com</a>
                                     </div>
                                 </li>
                             </ul>
 						</div>
-						<div class="col-lg-3 md-mb-10">
-							<h3 class="footer-title">Our Services</h3>
-							<ul class="site-map">
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">Information</a></li>
-                                <li><a href="#">Information</a></li>
-                            </ul>
-						</div>
-						<div class="col-lg-3">
-							<h3 class="footer-title">Newsletter</h3>
-							<p class="widget-desc">Tetur adipiscing elit, sed do eiusmod tempor in cididunt ut labore.</p>
-							<p>
-                                <input type="email" name="email" placeholder="Your Email Address" required="">
-                                <input type="submit" value="Subscribe Now">
-                            </p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom">
-                <div class="container">                    
-                    <div class="row y-middle">
-                        <div class="col-lg-6 md-mb-10 text-lg-end text-center order-last">
-                            <ul class="copy-right-menu">
+						<div>
+							<h4 class="text-align-center">Pages</h4>
+				<ul class="copy-right-menu ml-15">
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="about.html">About</a></li>
                                 <li><a href="products.html">Products</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
-                        </div>
-						<div class="col-lg-6">
-                            <div class="copyright text-lg-start text-center">
-                                <p>Planet 9 & Cosmic Cowboys Extractions <a href="#" target="blank"></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-		</footer>
-		<!-- Footer End -->
-
-		<!-- start scrollUp  -->
-		<div id="scrollUp">
-			<i class="fa fa-angle-up"></i>
-		</div>
-		<!-- End scrollUp  -->
-
-		<!-- Search Modal Start -->
-		<div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1">
-		    <div class="modal-dialog modal-dialog-centered">
-		        <div class="modal-content">
-		            <div class="search-block clearfix">
-		                <form>
-		                    <div class="form-group">
-		                        <input class="form-control" placeholder="Search Here..." type="text">
-		                    </div>
-		                </form>
-		            </div>
-		        </div>
-		    </div>
-		</div>
+						</div>
+							<div>
+								<h4 class="text-align-center">Information</h4>
+							<ul class="site-map ml-15">
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Information</a></li>
+                            </ul>
+						</div>
+				</div>
 		<!-- Search Modal End -->
 
 		<!-- modernizr js -->

@@ -1,12 +1,34 @@
 /* Width Classes */
-.mainPurpFont{
-    color: #e81ecd;
+.text-align-center{
+    text-align: center;
 }
-.mainPurpBack{
+.sticky-section {
+    position: sticky;
+    top: 0; 
+    z-index: 1000;  
+}
+.main-color{
+    color: #e81ecd !important;
+}
+.main-Bg-color{
     background-color:#e81ecd;
+}
+.bg-black{
+    background-color: black;
 }
 a{
     text-decoration: none;
+}
+.main-color-hover:hover{
+color: #e81ecd !important;
+}
+
+.clear-link{
+    text-decoration: none;
+    color: inherit;
+}
+.clear-link:visited{
+    color:inherit;
 }
 .h-100px {height: 100px;}
 .h-200px {height: 200px;}
@@ -57,7 +79,7 @@ a{
 .w-100 { width: 100%; }
 .frank-card{
   
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
